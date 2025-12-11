@@ -91,7 +91,7 @@ export function LoginPage() {
           </button>
         </form>
 
-        {/* Optional helper text WITHOUT password */}
+        {/* Helper text WITHOUT passwords */}
         <div className="text-[10px] text-slate-500 space-y-1">
           <p>Seeded users (see README / seed data for passwords):</p>
           <ul className="list-disc list-inside">
