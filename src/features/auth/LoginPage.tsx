@@ -12,8 +12,8 @@ export function LoginPage() {
   const location = useLocation();
   const state = location.state as LocationState | undefined;
 
-  const [email, setEmail] = useState("admin@orga.com");
-  const [password, setPassword] = useState("Password1!");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -26,6 +26,7 @@ export function LoginPage() {
       const redirectTo = state?.from?.pathname || "/events";
       navigate(redirectTo, { replace: true });
     } catch (err: any) {
+      console.error("Login error:", err);
       setError(
         err?.response?.data?.message || "Login failed. Check your credentials."
       );
@@ -36,13 +37,13 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100">
-      <div className="w-full max-w-md bg-white shadow-md rounded-2xl p-6 space-y-4">
+      <div className="w-full max-w-md bg-white shadow-md rounded-2xl p-6 space-y-5">
         <div className="space-y-1 text-center">
           <h1 className="text-2xl font-semibold text-slate-900">
             EventBoard Pro
           </h1>
           <p className="text-xs text-slate-500">
-            Sign in with a seeded test user.
+            Sign in to manage and moderate events.
           </p>
         </div>
 
@@ -60,9 +61,11 @@ export function LoginPage() {
             <input
               type="email"
               className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="username"
+              required
             />
           </div>
           <div>
@@ -72,9 +75,11 @@ export function LoginPage() {
             <input
               type="password"
               className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
+              required
             />
           </div>
           <button
@@ -86,16 +91,14 @@ export function LoginPage() {
           </button>
         </form>
 
-        <div className="text-[10px] text-slate-500">
-          <p>Sample users:</p>
+        {/* Optional helper text WITHOUT password */}
+        <div className="text-[10px] text-slate-500 space-y-1">
+          <p>Seeded users (see README / seed data for passwords):</p>
           <ul className="list-disc list-inside">
-            <li>admin@orga.com</li>
-            <li>mod@orga.com</li>
-            <li>user1@orga.com</li>
+            <li>admin@orga.com (Admin)</li>
+            <li>mod@orga.com (Moderator)</li>
+            <li>user1@orga.com (User)</li>
           </ul>
-          <p>
-            Password: <span className="font-mono">Password1!</span>
-          </p>
         </div>
       </div>
     </div>
